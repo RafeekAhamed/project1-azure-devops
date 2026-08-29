@@ -1,0 +1,23 @@
+import sys
+
+sys.path.append("app")
+
+from app import app
+
+
+def test_home():
+    client = app.test_client()
+
+    response = client.get("/")
+
+    assert response.status_code == 200
+    assert b"Azure DevOps CI/CD Project 1" in response.data
+
+
+def test_health():
+    client = app.test_client()
+
+    response = client.get("/health")
+
+    assert response.status_code == 200
+    assert response.data == b"Healthy"
